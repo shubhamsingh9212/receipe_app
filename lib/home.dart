@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,17 +14,15 @@ class _HomeState extends State<Home> {
   TextEditingController searchController = TextEditingController();
 
   getRecipe(String query) async {
-    String url = "https://edamam-recipe-search.p.rapidapi.com/search";
+    String appId = "6141e0e6";
+    String appKey = "04e1476438ba04cb3604562a4ea2d430";
+    String url = "https://api.edamam.com/search";
     final uri = Uri.parse(url);
-    final finalUri = uri.replace(queryParameters: {'q': 'chicken'});
+    final finalUri = uri.replace(queryParameters: {'q':"potato",'app_id': appId,'app_key':appKey});
     var response = await http.get(
-      finalUri,
-      headers: {
-        'X-RapidAPI-Key': 'a5085bc27fmsh0ae08cea84ac260p1e22ecjsnfc0dfe85906e',
-        'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
-      },
+      finalUri
     );
-    print("api response : ${response.body}");
+    log("api response :  ${response.body}");
   }
 
   @override
